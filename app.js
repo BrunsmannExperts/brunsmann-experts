@@ -5,15 +5,69 @@ let fieldsArea = document.getElementById('fieldsArea');
 let chapters = {};
 
 function addChapter() {
-    let chapterName = prompt("Naam van hoofdstuk?");
-    if (chapterName) {
+    fieldsArea.innerHTML = "";
+
+    let form = document.createElement('div');
+    form.innerHTML = `
+        <h3>Nieuw hoofdstuk toevoegen</h3>
+        <label>Naam hoofdstuk:</label><br>
+        <input type="text" id="chapterName"><br><br>
+
+        <label>Kies bovenhoofdstuk:</label><br>
+        <select id="parentChapter">
+            <option>Romp</option>
+            <option>Dek</option>
+            <option>Interieur</option>
+            <option>Tuigage</option>
+            <option>Technische installatie</option>
+            <option>Elektrische installatie</option>
+            <option>Veiligheidsmiddelen</option>
+        </select><br><br>
+
+        <label>Tags:</label><br>
+        <input type="checkbox" value="Zeilboot"> Zeilboot
+        <input type="checkbox" value="Motorboot"> Motorboot
+        <input type="checkbox" value="Staal"> Staal
+        <input type="checkbox" value="Polyester"> Polyester<br><br>
+
+        <label>Direct standaard vragen invullen (scheiden met komma):</label><br>
+        <textarea id="defaultFields" placeholder="Bijv: Vochtmeting, Osmose, Delaminatie"></textarea><br><br>
+
+        <button onclick="saveChapter()">Opslaan hoofdstuk</button>
+    `;
+    fieldsArea.appendChild(form);
+}
+
+function saveChapter() {
+    let name = document.getElementById('chapterName').value;
+    let parent = document.getElementById('parentChapter').value;
+    let tags = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value).join(", ");
+    let defaultFields = document.getElementById('defaultFields').value.split(',');
+
+    if (name) {
+        let chapterFullName = parent + " - " + name;
         let li = document.createElement('li');
-        li.textContent = chapterName;
+        li.textContent = chapterFullName;
         li.onclick = function() {
-            selectChapter(chapterName);
+            selectChapter(chapterFullName);
         };
         chapterList.appendChild(li);
-        chapters[chapterName] = [];
+
+        chapters[chapterFullName] = [];
+
+        defaultFields.forEach(field => {
+            if (field.trim() !== "") {
+                chapters[chapterFullName].push({
+                    label: field.trim(),
+                    type: "GRVVMS",
+                    tags: tags
+                });
+            }
+        });
+
+        selectChapter(chapterFullName);
+    } else {
+        alert("Voer een naam voor het hoofdstuk in.");
     }
 }
 
