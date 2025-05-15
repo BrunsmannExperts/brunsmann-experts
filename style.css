@@ -1,0 +1,6 @@
+
+body { font-family: Arial, sans-serif; display: flex; margin: 0; height: 100vh; }
+.sidebar { width: 220px; background: #f2f2f2; padding: 20px; }
+.content { flex-grow: 1; padding: 20px; }
+.field { margin-bottom: 15px; }
+.save-btn { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
