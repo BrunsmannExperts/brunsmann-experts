@@ -43,16 +43,46 @@ function showAddFieldButton(name) {
 }
 
 function addField(chapter) {
-    let fieldName = prompt("Naam veld?");
-    let fieldType = prompt("Type veld? (GRVVMS / Ja/Nee / Getal / Tekst)");
-    let fieldTags = prompt("Tags? (bijv. Zeilboot, Staal, etc.)");
+    fieldsArea.innerHTML = "";
+
+    let form = document.createElement('div');
+    form.innerHTML = `
+        <h3>Nieuw veld toevoegen aan "${chapter}"</h3>
+        <label>Naam veld:</label><br>
+        <input type="text" id="fieldName"><br><br>
+
+        <label>Type veld:</label><br>
+        <select id="fieldType">
+            <option>GRVVMS</option>
+            <option>Ja/Nee</option>
+            <option>Getal</option>
+            <option>Tekst</option>
+        </select><br><br>
+
+        <label>Tags:</label><br>
+        <input type="checkbox" value="Zeilboot"> Zeilboot
+        <input type="checkbox" value="Motorboot"> Motorboot
+        <input type="checkbox" value="Staal"> Staal
+        <input type="checkbox" value="Polyester"> Polyester<br><br>
+
+        <button onclick="saveField('${chapter}')">Opslaan veld</button>
+    `;
+    fieldsArea.appendChild(form);
+}
+
+function saveField(chapter) {
+    let fieldName = document.getElementById('fieldName').value;
+    let fieldType = document.getElementById('fieldType').value;
+    let tags = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value).join(", ");
+
     if (fieldName) {
         chapters[chapter].push({
             label: fieldName,
             type: fieldType,
-            tags: fieldTags
+            tags: tags
         });
-        showFields(chapter);
-        showAddFieldButton(chapter);
+        selectChapter(chapter);
+    } else {
+        alert("Voer een veldnaam in.");
     }
 }
