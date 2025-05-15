@@ -140,3 +140,25 @@ function saveField(chapter) {
         alert("Voer een veldnaam in.");
     }
 }
+
+function showReport() {
+    fieldsArea.innerHTML = "<h2>Rapport van bevindingen</h2>";
+    for (let chapter in chapters) {
+        let chapterBlock = document.createElement('div');
+        chapterBlock.innerHTML = `<h3>${chapter}</h3>`;
+        
+        chapters[chapter].forEach(field => {
+            let fieldDiv = document.createElement('div');
+            fieldDiv.className = "field";
+            fieldDiv.innerHTML = `<strong>${field.label}</strong> (${field.type})<br><i>Tags: ${field.tags}</i><br><hr>`;
+            chapterBlock.appendChild(fieldDiv);
+        });
+
+        fieldsArea.appendChild(chapterBlock);
+    }
+}
+
+let reportBtn = document.createElement('button');
+reportBtn.textContent = "Bekijk rapport";
+reportBtn.onclick = showReport;
+document.getElementById('sidebar').appendChild(reportBtn);
