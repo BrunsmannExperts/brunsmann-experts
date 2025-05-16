@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instellingen - Brunsmann Experts</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { margin-top: 40px; }
+    label { display: block; margin-top: 10px; }
+    input, select, textarea { width: 100%; padding: 6px; margin-top: 4px; }
+    fieldset { margin-bottom: 40px; padding: 20px; border: 1px solid #ccc; }
+    legend { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Instellingen</h1>
+
+  <fieldset>
+    <legend>Gebruikersbeheer</legend>
+    <label for="username">Gebruikersnaam toevoegen:</label>
+    <input type="text" id="username" placeholder="Bijv. paul" />
+    
+    <label for="password">Wachtwoord:</label>
+    <input type="password" id="password" />
+    
+    <button type="button" onclick="alert('Gebruiker opgeslagen')">+ Gebruiker opslaan</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Rapportopbouw</legend>
+    <label for="sjabloon">Kies rapporttype:</label>
+    <select id="sjabloon">
+      <option>Aankoopkeuring</option>
+      <option>CE-begeleiding</option>
+      <option>Taxatie</option>
+    </select>
+
+    <label>Actieve hoofdstukken:</label>
+    <textarea placeholder="Bijv: Romp, Dek, Tuigage, Interieur..."></textarea>
+
+    <label>Standaardonderdelen per hoofdstuk:</label>
+    <textarea placeholder="Bijv: Romp: conditie, hechting, vochtmeting..."></textarea>
+
+    <label for="i-teksten">i-tekst voor experts tonen?</label>
+    <select id="i-teksten">
+      <option>Ja</option>
+      <option>Nee</option>
+    </select>
+
+    <label for="notities-export">Interne notities in rapport exporteren?</label>
+    <select id="notities-export">
+      <option>Nee</option>
+      <option>Ja</option>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>Rapport export</legend>
+    <label for="exportvorm">Exporttype rapport:</label>
+    <select id="exportvorm">
+      <option>PDF + Word</option>
+      <option>Alleen PDF</option>
+    </select>
+
+    <label for="logo-upload">Upload logo voor rapport:</label>
+    <input type="file" id="logo-upload" accept="image/*" />
+  </fieldset>
+
+  <fieldset>
+    <legend>Offerte & Factuur</legend>
+    <label for="standaardtarief">Standaardtarief aankoopkeuring (€):</label>
+    <input type="number" value="395" />
+
+    <label for="btw">BTW-percentage:</label>
+    <select id="btw">
+      <option>21%</option>
+      <option>9%</option>
+      <option>0%</option>
+    </select>
+
+    <label for="korting">Korting toestaan?</label>
+    <select id="korting">
+      <option>Ja</option>
+      <option>Nee</option>
+    </select>
+
+    <label for="bank">Bankgegevens factuur:</label>
+    <textarea placeholder="IBAN, naam, plaats, referentie"></textarea>
+  </fieldset>
+
+  <fieldset>
+    <legend>Algemeen</legend>
+    <label for="ai-aan">AI-functies inschakelen?</label>
+    <select id="ai-aan">
+      <option>Ja</option>
+      <option>Nee</option>
+    </select>
+
+    <label for="structuur">Bestandsstructuur:</label>
+    <select id="structuur">
+      <option>Per klant</option>
+      <option>Per boot</option>
+    </select>
+
+    <label for="zichtbaarheid">Gegevens zichtbaar voor klant?</label>
+    <select id="zichtbaarheid">
+      <option>Alleen definitieve bestanden</option>
+      <option>Alles</option>
+    </select>
+  </fieldset>
+
+  <button type="submit">💾 Instellingen opslaan</button>
+</body>
+</html>
