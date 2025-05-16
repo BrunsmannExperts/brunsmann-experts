@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nieuw rapport starten - Brunsmann Experts</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nieuw rapport starten</h1>
+    <nav>
+      <ul>
+        <li><a href="boten.html">← Terug naar botenoverzicht</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <form action="#" method="post">
+        <label for="rapportdatum">Datum keuring:</label>
+        <input type="date" id="rapportdatum" name="rapportdatum" required />
+
+        <label for="locatie">Keuring locatie:</label>
+        <input type="text" id="locatie" name="locatie" required />
+
+        <label for="expert">Naam expert:</label>
+        <input type="text" id="expert" name="expert" required />
+
+        <label for="type">Type keuring:</label>
+        <select id="type" name="type">
+          <option>Aankoopkeuring</option>
+          <option>Taxatie</option>
+          <option>Bouwbegeleiding</option>
+          <option>Consult</option>
+        </select>
+
+        <label for="opmerking">Opmerking:</label>
+        <textarea id="opmerking" name="opmerking"></textarea>
+
+        <br /><br />
+        <button type="submit">Start rapport</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

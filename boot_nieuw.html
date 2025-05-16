@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nieuwe boot toevoegen - Brunsmann Experts</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nieuwe boot toevoegen</h1>
+    <nav>
+      <ul>
+        <li><a href="boten.html">← Terug naar botenoverzicht</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <form action="#" method="post">
+        <label for="bootnaam">Bootnaam:</label>
+        <input type="text" id="bootnaam" name="bootnaam" required />
+
+        <label for="type">Type schip:</label>
+        <input type="text" id="type" name="type" required />
+
+        <label for="bouwjaar">Bouwjaar:</label>
+        <input type="number" id="bouwjaar" name="bouwjaar" />
+
+        <label for="materiaal">Materiaal romp:</label>
+        <select id="materiaal" name="materiaal">
+          <option>Polyester</option>
+          <option>Staal</option>
+          <option>Aluminium</option>
+          <option>Hout</option>
+          <option>Composiet</option>
+        </select>
+
+        <label for="opmerking">Opmerking:</label>
+        <textarea id="opmerking" name="opmerking"></textarea>
+
+        <br /><br />
+        <button type="submit">Boot opslaan</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
