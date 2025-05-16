@@ -6,6 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Klanten - Brunsmann Experts</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .copy-icon {
+      cursor: pointer;
+      margin-left: 6px;
+      color: #4CAF50;
+    }
+    .filterbar {
+      margin-bottom: 15px;
+    }
+    .filterbar input,
+    .filterbar select {
+      padding: 5px;
+      margin-right: 10px;
+    }
+    .boot-details {
+      display: none;
+      font-size: 0.9em;
+      color: #444;
+    }
+    .teller {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,42 +44,55 @@
   <main>
     <section>
       <h2>Overzicht klanten</h2>
-      <table>
+
+      <div class="filterbar">
+        <input type="text" id="zoekveld" placeholder="Zoek op naam, klantnummer of e-mail..." onkeyup="zoekKlanten()" />
+        <select id="sorteer" onchange="sorteerKlanten()">
+          <option value="">Sorteer op…</option>
+          <option value="naam_az">Naam A–Z</option>
+          <option value="naam_za">Naam Z–A</option>
+          <option value="nummer_op">Klantnummer oplopend</option>
+          <option value="nummer_af">Klantnummer aflopend</option>
+        </select>
+        <button onclick="alert('Importfunctie volgt!')">📥 Importeren</button>
+      </div>
+
+      <div class="teller" id="teller">Totaal: 2 klanten</div>
+
+      <table id="klantentabel">
         <thead>
           <tr>
             <th>Klantnummer</th>
             <th>Naam</th>
             <th>E-mail</th>
             <th>Telefoon</th>
-            <th>Acties</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>4001</td>
-            <td>Jan de Vries</td>
-            <td>jan@voorbeeld.nl</td>
-            <td>06-12345678</td>
+          <tr onclick="toggleBooten(this)">
+            <td><a href="klant_detail.html">4001</a></td>
+            <td><a href="klant_detail.html">Jan de Vries</a></td>
             <td>
-              <a href="boten.html">Boten</a> |
-              <a href="#">Offerte</a> |
-              <a href="#">Factuur</a> |
-              <a href="#">Bewerk</a> |
-              <a href="#">Verwijder</a>
+              <a href="mailto:jan@voorbeeld.nl">jan@voorbeeld.nl</a>
+              <span class="copy-icon" onclick="copyToClipboard('jan@voorbeeld.nl')">📋</span>
             </td>
+            <td><a href="tel:0612345678">06-12345678</a></td>
           </tr>
-          <tr>
-            <td>4002</td>
-            <td>Petra Jansen</td>
-            <td>petra@voorbeeld.nl</td>
-            <td>06-87654321</td>
+          <tr class="boot-details">
+            <td colspan="4">🛥️ Freedom (Bavaria 32, 2004)</td>
+          </tr>
+
+          <tr onclick="toggleBooten(this)">
+            <td><a href="klant_detail.html">4002</a></td>
+            <td><a href="klant_detail.html">Petra Jansen</a></td>
             <td>
-              <a href="boten.html">Boten</a> |
-              <a href="#">Offerte</a> |
-              <a href="#">Factuur</a> |
-              <a href="#">Bewerk</a> |
-              <a href="#">Verwijder</a>
+              <a href="mailto:petra@voorbeeld.nl">petra@voorbeeld.nl</a>
+              <span class="copy-icon" onclick="copyToClipboard('petra@voorbeeld.nl')">📋</span>
             </td>
+            <td><a href="tel:0687654321">06-87654321</a></td>
+          </tr>
+          <tr class="boot-details">
+            <td colspan="4">🛥️ Waterkracht (Hallberg Rassy 36, 1998)</td>
           </tr>
         </tbody>
       </table>
@@ -63,5 +100,68 @@
       <button onclick="window.location.href='klant_nieuw.html'">+ Nieuwe klant toevoegen</button>
     </section>
   </main>
+
+  <script>
+    function copyToClipboard(text) {
+      event.stopPropagation();
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Gekopieerd: " + text);
+      });
+    }
+
+    function zoekKlanten() {
+      const zoekterm = document.getElementById("zoekveld").value.toLowerCase();
+      const rijen = document.querySelectorAll("#klantentabel tbody tr");
+      let teller = 0;
+      for (let i = 0; i < rijen.length; i += 2) {
+        const hoofd = rijen[i];
+        const detail = rijen[i + 1];
+        const tekst = hoofd.innerText.toLowerCase();
+        const zichtbaar = tekst.includes(zoekterm);
+        hoofd.style.display = zichtbaar ? "" : "none";
+        detail.style.display = zichtbaar && detail.classList.contains("boot-details") ? "none" : "none";
+        if (zichtbaar) teller++;
+      }
+      document.getElementById("teller").innerText = "Totaal: " + teller + " klanten";
+    }
+
+    function sorteerKlanten() {
+      const sorteer = document.getElementById("sorteer").value;
+      const tbody = document.querySelector("#klantentabel tbody");
+      const rijen = Array.from(tbody.querySelectorAll("tr")).filter((_, i) => i % 2 === 0);
+      const details = Array.from(tbody.querySelectorAll("tr")).filter((_, i) => i % 2 !== 0);
+
+      rijen.forEach((r, i) => r.dataset.detail = details[i].outerHTML);
+
+      rijen.sort((a, b) => {
+        const naamA = a.cells[1].innerText.toLowerCase();
+        const naamB = b.cells[1].innerText.toLowerCase();
+        const numA = parseInt(a.cells[0].innerText);
+        const numB = parseInt(b.cells[0].innerText);
+        if (sorteer === "naam_az") return naamA.localeCompare(naamB);
+        if (sorteer === "naam_za") return naamB.localeCompare(naamA);
+        if (sorteer === "nummer_op") return numA - numB;
+        if (sorteer === "nummer_af") return numB - numA;
+        return 0;
+      });
+
+      tbody.innerHTML = "";
+      rijen.forEach(r => {
+        tbody.appendChild(r);
+        const detailRow = document.createElement("tr");
+        detailRow.outerHTML = r.dataset.detail;
+        tbody.appendChild(detailRow);
+      });
+
+      zoekKlanten();
+    }
+
+    function toggleBooten(rij) {
+      const volgende = rij.nextElementSibling;
+      if (volgende && volgende.classList.contains("boot-details")) {
+        volgende.style.display = volgende.style.display === "table-row" ? "none" : "table-row";
+      }
+    }
+  </script>
 </body>
 </html>
