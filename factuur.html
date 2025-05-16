@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Factuur opstellen - Brunsmann Experts</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    table input, select {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nieuwe factuur</h1>
+    <nav>
+      <ul>
+        <li><a href="klant_detail.html">← Terug naar klant</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <form action="#" method="post">
+      <fieldset>
+        <legend>Klant- en factuurgegevens</legend>
+        <p><strong>Klantnaam:</strong> Jan de Vries</p>
+        <p><strong>Klantnummer:</strong> 4001</p>
+        <p><strong>Boot:</strong> Freedom (Bavaria 32)</p>
+        <p><strong>Factuurnummer:</strong> automatisch gegenereerd</p>
+        <p><strong>Factuurdatum:</strong> automatisch ingevuld (vandaag)</p>
+        <label for="factuuremail">E-mail klant (voor verzending):</label>
+        <input type="email" id="factuuremail" name="factuuremail" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Factuurregels</legend>
+        <table>
+          <thead>
+            <tr>
+              <th>Omschrijving</th>
+              <th>Bedrag (€)</th>
+              <th>BTW</th>
+              <th>Verwijderen</th>
+            </tr>
+          </thead>
+          <tbody id="regels">
+            <tr>
+              <td><input type="text" value="Aankoopkeuring schip" /></td>
+              <td><input type="number" step="0.01" value="395.00" /></td>
+              <td>
+                <select>
+                  <option>21%</option>
+                  <option>9%</option>
+                  <option>0%</option>
+                </select>
+              </td>
+              <td><button type="button" onclick="this.closest('tr').remove()">🗑️</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" onclick="regelToevoegen()">+ Regel toevoegen</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Korting & Samenvatting</legend>
+        <label for="korting">Korting (€ of %):</label>
+        <input type="text" id="korting" name="korting" placeholder="bijv. 10 of 5%" />
+        <p><strong>Totaal excl. BTW:</strong> automatisch berekend</p>
+        <p><strong>BTW bedrag:</strong> automatisch berekend</p>
+        <p><strong>Totaal incl. BTW:</strong> automatisch berekend</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Opmerkingen</legend>
+        <textarea placeholder="Bijv. betalingsvoorwaarden, notities..."></textarea>
+      </fieldset>
+
+      <br />
+      <button type="submit">Voorbeeld bekijken</button>
+      <button type="button" onclick="alert('PDF-export volgt later')">Download als PDF</button>
+      <button type="button" onclick="alert('Verzenden volgt later')">Verstuur per e-mail</button>
+    </form>
+  </main>
+
+  <script>
+    function regelToevoegen() {
+      const tbody = document.getElementById("regels");
+      const rij = document.createElement("tr");
+      rij.innerHTML = `
+        <td><input type="text" /></td>
+        <td><input type="number" step="0.01" /></td>
+        <td>
+          <select>
+            <option>21%</option>
+            <option>9%</option>
+            <option>0%</option>
+          </select>
+        </td>
+        <td><button type="button" onclick="this.closest('tr').remove()">🗑️</button></td>`;
+      tbody.appendChild(rij);
+    }
+  </script>
+</body>
+</html>
