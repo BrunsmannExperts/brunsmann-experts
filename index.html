@@ -2,22 +2,44 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <title>Expert Interface Brunsmann - Flexibel</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brunsmann Experts - Home</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="sidebar">
-        <h3>Hoofdstukken</h3>
-        <ul id="chapterList"></ul>
-        <button onclick="addChapter()">+ Hoofdstuk toevoegen</button>
-    </div>
+  <header>
+    <h1>Brunsmann Experts</h1>
+    <nav>
+      <ul>
+        <li><a href="inloggen.html">Inloggen</a></li>
+        <li><a href="#over">Over ons</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div id="content">
-        <h2 id="chapterTitle">Selecteer of voeg een hoofdstuk toe</h2>
-        <div id="fieldsArea"></div>
-    </div>
+  <main>
+    <section class="hero">
+      <h2>Technische keuringen, taxaties en rapportages voor pleziervaart</h2>
+      <p>Log in om rapporten te beheren of een keuring te starten.</p>
+      <a href="inloggen.html" class="btn">Ga naar inloggen</a>
+    </section>
 
-    <script src="app.js"></script>
+    <section id="over">
+      <h3>Over Brunsmann Experts</h3>
+      <p>Met jarenlange ervaring in de watersport levert Brunsmann Experts professionele keuringen en rapportages voor boten, motorjachten en zeiljachten.</p>
+    </section>
+
+    <section id="contact">
+      <h3>Contact</h3>
+      <p>Email: info@brunsmann.nl<br />
+      Telefoon: 06 - 123 456 78</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Brunsmann Experts</p>
+  </footer>
 </body>
 </html>
